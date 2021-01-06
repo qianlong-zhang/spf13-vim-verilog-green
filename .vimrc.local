@@ -1,0 +1,88 @@
+colorscheme darkblue2
+set nospell
+set mouse=
+"close auto pare
+let g:AutoPairs = {}
+let g:syntastic_quiet_messages = { "type": "style" }
+let g:pymode = 0
+set wrap
+
+"编码设置
+set enc=utf-8
+set fenc=utf-8
+set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set fileencodings=utf-8,gbk,latin-1
+
+"set t_Co=256 "如果是在模拟终端需要把颜色设置成256色
+
+
+"tab=四个空格
+set ts=4
+set expandtab
+set autoindent
+
+
+"if has("cscope")
+"    set csprg=/usr/bin/cscope
+"    set csto=0
+"    set cst
+"    set csverb
+"    set cspc=3
+"    "add any database in current dir
+"    if filereadable("cscope.out")
+"        cs add cscope.out
+"    "else search cscope.out elsewhere
+"    else
+"       let cscope_file=findfile("cscope.out", ".;")
+"       let cscope_pre=matchstr(cscope_file, ".*/")
+"       if !empty(cscope_file) && filereadable(cscope_file)
+"           exe "cs add" cscope_file cscope_pre
+"       endif
+"     endif
+"endif
+
+" cscope config {
+if has("cscope")
+   set cscopetag   " 使支持用 Ctrl+]  和 Ctrl+t 快捷键在代码间跳来跳去
+   " check cscope for definition of a symbol before checking ctags:                                                                   
+   " set to 1 if you want the reverse search order.
+   set csto=0
+   " add any cscope database in current directory
+   if filereadable("cscope.out")
+      cs add cscope.out
+      " else add the database pointed to by environment variable
+   elseif $CSCOPE_DB !=""
+      cs add $CSCOPE_DB
+   endif
+   " show msg when any other cscope db added
+   set cscopeverbose
+
+   " 查找函数名、宏、枚举等出现的地方
+   nmap <C-/>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+   " 查找函数名、宏、枚举等定义的地方
+   nmap <C-/>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+   " 查找调用本函数的函数
+   nmap <C-/>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+   " 查找本函数调用的函数
+   nmap <C-/>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+   " 查找指定的字符串
+   nmap <C-/>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+   " 查找egrap模式，相当于egrep功能，但查找速度快些
+   nmap <C-/>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+   " 查找并打开文件，类似vim的find功能
+   nmap <C-/>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+   " 查找包含本文件的文件
+   nmap <C-/>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+
+endif
+
+set cscopequickfix=s-,c-,i-,t-,e-
+set paste
+set nolist   "not display space and tab, "set list" to display
+nmap <F6> :cn<cr>
+nmap <F7> :cp<cr>
+
+"}
+
+vmap <C_x> :!pbcopy<CR>
+vmap <C_c> :W !pbcopy<CR><CR>
